@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { TodosFacadeService } from '../lib';
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, catchError, takeUntil, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +30,17 @@ export class AppComponent implements OnInit, OnDestroy {
     this.todosFacadeService.createTodo({
       title: 'New Todo',
       description: 'This is a new todo'
-    });
+    }).pipe(
+      takeUntil(this.destroy$),
+      catchError((error) => {
+        console.log("🚀 ~ AppComponent ~ catchError ~ error:", error)
+        return throwError(() => error);
+      })
+    );
+  }
+
+  public deleteTodo(uuid: string) {
+    this.todosFacadeService.deleteTodo(uuid)
   }
 
   private getTodos() {

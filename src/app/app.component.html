@@ -330,8 +330,10 @@
 <div class="content" role="main">
   <!-- Next Steps -->
   <h2>Logs</h2>
-  <div *ngFor="let item of todosFacadeService.todos$ | async">
-    <p>{{item.uuid}}:{{item.title}}</p>
+  <div *ngIf="todosFacadeService.todosLoaded$ | async">
+    <div *ngFor="let item of todosFacadeService.todos$ | async">
+      <p (click)="todosFacadeService.deleteTodo(item.uuid)">{{item.uuid}}:{{item.title}}</p>
+    </div>
   </div>
 
   <input #selection>

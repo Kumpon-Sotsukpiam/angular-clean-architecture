@@ -3,7 +3,7 @@ import { catchError, Observable, tap, throwError } from 'rxjs'
 import { CreateTodoDto, TodosAdapterService } from './todos-adapter.service'
 import { TodosRepository } from './todos.repository'
 import { Todo } from './types'
-import { UuidGeneratorService } from './uuid-generator.service'
+// import { UuidGeneratorService } from './uuid-generator.service'
 
 @Injectable({
     providedIn: 'root',
@@ -12,7 +12,7 @@ export class TodosDataService {
     constructor(
         private todosAdapter: TodosAdapterService,
         private todosRepo: TodosRepository,
-        private uuidGenerator: UuidGeneratorService
+        // private uuidGenerator: UuidGeneratorService
     ) { }
 
     getTodos(): Observable<Todo[]> {
@@ -22,35 +22,36 @@ export class TodosDataService {
     }
 
     createTodo(todo: CreateTodoDto): Observable<Todo> {
-        const tempUuid = this.uuidGenerator.getUuid()
+        // const tempUuid = this.uuidGenerator.getUuid()
 
-        this.todosRepo.addTodo({
-            uuid: tempUuid,
-            status: 'pending',
-            ...todo,
-        })
 
         return this.todosAdapter.createTodo(todo).pipe(
             tap((todo) => {
-                this.todosRepo.updateTodoUuid(tempUuid, todo.uuid)
-                this.todosRepo.updateTodo(todo.uuid, todo)
+                this.todosRepo.addTodo({
+                    ...todo,
+                })
+                // this.todosRepo.updateTodoUuid(tempUuid, todo.uuid)
+                // this.todosRepo.updateTodo(todo.uuid, todo)
             }),
             catchError((error) => {
-                this.todosRepo.deleteTodo(tempUuid)
+                // this.todosRepo.deleteTodo(tempUuid)
                 return throwError(() => error)
             })
         )
     }
 
     deleteTodo(todoUuid: Todo['uuid']): Observable<void> {
-        const todo = this.todosRepo.queryTodo(todoUuid)
-        this.todosRepo.deleteTodo(todoUuid)
+        // const todo = this.todosRepo.queryTodo(todoUuid)
 
         return this.todosAdapter.deleteTodo(todoUuid).pipe(
+            tap((todo) => {
+                console.log("🚀 ~ TodosDataService ~ tap ~ todo:", todoUuid)
+                this.todosRepo.deleteTodo(todoUuid)
+            }),
             catchError((error) => {
-                if (todo) {
-                    this.todosRepo.addTodo(todo)
-                }
+                // if (todo) {
+                //     this.todosRepo.addTodo(todo)
+                // }
                 return throwError(() => error)
             })
         )

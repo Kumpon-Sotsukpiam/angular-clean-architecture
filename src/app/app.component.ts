@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { TodosFacadeService } from '../lib';
+import { TodosFacadeService } from './lib';
 import { Observable, Subject, catchError, takeUntil, throwError } from 'rxjs';
 
 @Component({

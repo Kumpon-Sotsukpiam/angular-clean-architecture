@@ -1,7 +1,6 @@
 import { Observable } from 'rxjs'
-import { Todo } from './types'
-
-export type CreateTodoDto = Omit<Todo, 'uuid' | 'status'>
+import { Todo } from '../interfaces/types'
+import { CreateTodoDto } from '../dtos'
 
 export class TodoNotFoundError extends Error { }
 

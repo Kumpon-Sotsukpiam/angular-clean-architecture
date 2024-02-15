@@ -6,8 +6,8 @@ import { Todo } from '../types'
 
 @Injectable()
 export class ApiTodosAdapterService extends TodosAdapterService {
-    private functionsUrl = 'https://greetclock-parts-functions.deno.dev'
-    // private functionsUrl = 'http://localhost:8000'
+    // private functionsUrl = 'https://greetclock-parts-functions.deno.dev'
+    private functionsUrl = 'http://localhost:8000'
 
     constructor(private http: HttpClient) {
         super()

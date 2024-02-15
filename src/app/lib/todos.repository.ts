@@ -11,7 +11,7 @@ import {
     withEntities,
 } from '@ngneat/elf-entities'
 import { withRequestsCache, withRequestsStatus } from '@ngneat/elf-requests'
-import { Todo } from './types'
+import { Todo } from './interfaces/types'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TodosProps { }

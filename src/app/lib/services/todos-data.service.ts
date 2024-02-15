@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core'
 import { catchError, Observable, tap, throwError } from 'rxjs'
-import { CreateTodoDto, TodosAdapterService } from './todos-adapter.service'
-import { TodosRepository } from './todos.repository'
-import { Todo } from './types'
+import { TodosAdapterService } from './todos-adapter.service'
+import { TodosRepository } from '../todos.repository'
+import { Todo } from '../interfaces/types'
+import { CreateTodoDto } from '../dtos'
 // import { UuidGeneratorService } from './uuid-generator.service'
 
 @Injectable({

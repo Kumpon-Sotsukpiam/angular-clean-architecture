@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core'
 import { delay, mergeMap, Observable, of, throwError } from 'rxjs'
 import { v4 as getUuid } from 'uuid'
 import {
-    CreateTodoDto,
     TodoNotFoundError,
     TodosAdapterService,
-} from '../todos-adapter.service'
-import { Todo } from '../types'
+} from '../services/todos-adapter.service'
+import { CreateTodoDto } from '../dtos/create-todo.dto'
+import { Todo } from '../interfaces/types'
 
 export interface LocalStorageData {
     todos: Todo[]

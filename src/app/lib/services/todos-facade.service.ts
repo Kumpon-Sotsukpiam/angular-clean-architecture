@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core'
 import { BehaviorSubject, map, Observable } from 'rxjs'
-import { CreateTodoDto, TodosAdapterService } from './todos-adapter.service'
+import { TodosAdapterService } from './todos-adapter.service'
+import { CreateTodoDto } from '../dtos/create-todo.dto'
 import { TodosDataService } from './todos-data.service'
-import { todos$ } from './todos.repository'
-import { Todo } from './types'
+import { todos$ } from '../todos.repository'
+import { Todo } from '../interfaces/types'
 
 @Injectable({
     providedIn: 'root',
@@ -26,7 +27,7 @@ export class TodosFacadeService {
 
     constructor(
         private todosAdapter: TodosAdapterService,
-        private todosData: TodosDataService
+        private todosData: TodosDataService,
     ) { }
 
     getTodos(): Observable<Todo[]> {

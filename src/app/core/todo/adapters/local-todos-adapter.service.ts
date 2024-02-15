@@ -20,7 +20,6 @@ export class LocalTodosAdapterService extends TodosAdapterService {
 
     constructor() {
         super()
-
         this.enableConsoleCommands()
     }
 
@@ -35,8 +34,7 @@ export class LocalTodosAdapterService extends TodosAdapterService {
 
             if (this.isResponseFailed()) {
                 setTimeout(() => {
-                    const error = new Error('Unknown error')
-                    console.warn(error)
+                    const error = new Error('Failed to create')
                     subscriber.error(error)
                 }, DELAY_MS)
             } else {

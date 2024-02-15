@@ -4,9 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
-import { TodosDataModule } from './lib';
 import { EffectsModule } from '@ngrx/effects';
 
+import { CoreDataModule } from '@core/core.module'
 @NgModule({
   declarations: [
     AppComponent
@@ -18,7 +18,7 @@ import { EffectsModule } from '@ngrx/effects';
       metaReducers: []
     }),
     EffectsModule.forRoot([]),
-    TodosDataModule,
+    CoreDataModule
   ],
   providers: [],
   bootstrap: [AppComponent]

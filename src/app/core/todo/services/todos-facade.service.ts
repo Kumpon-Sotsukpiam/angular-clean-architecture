@@ -19,6 +19,7 @@ import { CreateTodoDto } from '../dtos'
 export class TodosFacadeService {
 
     todos$ = this.store.select(todosQuery.getAllTodos)
+    todosLoaded$ = this.store.select(todosQuery.getLoaded)
 
     constructor(
         private store: Store<TodosState>

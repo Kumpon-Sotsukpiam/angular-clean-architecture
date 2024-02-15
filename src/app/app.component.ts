@@ -1,7 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
+import { ScannedActionsSubject } from '@ngrx/store';
+import { ofType } from '@ngrx/effects';
 
-import { TodosFacadeService } from './lib';
-import { Observable, Subject, catchError, takeUntil, throwError } from 'rxjs';
+import { TodosFacadeService } from '@core';
+import { TodoActionTypes } from '@core/todo/store/todo.actions';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +17,15 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'angular-tour-of-heroes';
 
   constructor(
-    public readonly todosFacadeService: TodosFacadeService
-  ) { }
+    public readonly todosFacadeService: TodosFacadeService,
+    private readonly actions$: ScannedActionsSubject
+  ) {
+    actions$.pipe(takeUntil(this.destroy$))
+      .pipe(ofType(TodoActionTypes.createTodoFailure))
+      .subscribe(action => {
+        console.log("🚀 ~ AppComponent ~ constructor ~ action", action)
+      })
+  }
 
   ngOnInit(): void {
     this.getTodos();
@@ -31,13 +41,6 @@ export class AppComponent implements OnInit, OnDestroy {
       title: 'New Todo',
       description: 'This is a new todo'
     })
-    // .pipe(
-    //   takeUntil(this.destroy$),
-    //   catchError((error) => {
-    //     console.log("🚀 ~ AppComponent ~ catchError ~ error:", error)
-    //     return throwError(() => error);
-    //   })
-    // );
   }
 
   public deleteTodo(uuid: string) {

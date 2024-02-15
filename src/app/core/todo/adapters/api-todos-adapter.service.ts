@@ -7,29 +7,29 @@ import { CreateTodoDto } from '../dtos'
 
 @Injectable()
 export class ApiTodosAdapterService extends TodosAdapterService {
-    // private functionsUrl = 'https://greetclock-parts-functions.deno.dev'
     private functionsUrl = 'http://localhost:8000'
+    baseUrl = "/api/todos";
 
     constructor(private http: HttpClient) {
         super()
     }
 
     createTodo(createTodo: CreateTodoDto): Observable<Todo> {
-        return this.http.post<Todo>(`${this.functionsUrl}/todos`, createTodo)
+        return this.http.post<Todo>(this.baseUrl, createTodo)
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    deleteTodo(uuid: string): Observable<void> {
+    deleteTodo(id: string): Observable<void> {
         return throwError('Not Implemented')
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    getTodoByUuid(uuid: string): Observable<Todo | null> {
+    getTodoByUuid(id: string): Observable<Todo | null> {
         return throwError('Not Implemented')
     }
 
     getTodos(): Observable<Todo[]> {
-        return this.http.get<Todo[]>(`${this.functionsUrl}/todos`)
+        return this.http.get<Todo[]>(this.baseUrl)
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -38,7 +38,7 @@ export class ApiTodosAdapterService extends TodosAdapterService {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    updateTodoStatus(uuid: string, status: 'pending' | 'done'): Observable<Todo> {
+    updateTodoStatus(id: string, status: 'pending' | 'done'): Observable<Todo> {
         return throwError('Not Implemented')
     }
 }

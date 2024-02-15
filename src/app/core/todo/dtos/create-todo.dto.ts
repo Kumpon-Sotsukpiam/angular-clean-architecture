@@ -1,3 +1,3 @@
 import { Todo } from "../interfaces/types";
 
-export type CreateTodoDto = Omit<Todo, 'uuid' | 'status'>
+export type CreateTodoDto = Omit<Todo, 'id' | 'status'>

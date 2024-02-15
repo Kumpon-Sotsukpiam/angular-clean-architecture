@@ -30,6 +30,7 @@ export class TodosFacadeService {
     }
 
     createTodo(data: CreateTodoDto) {
+        console.log("🚀 ~ TodosFacadeService ~ data:", data)
         this.store.dispatch(CreateTodo({ data }))
     }
 

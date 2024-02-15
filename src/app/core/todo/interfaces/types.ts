@@ -1,5 +1,5 @@
 export interface Todo {
-    uuid: string
+    id: string
     title: string
     description?: string
     status?: 'pending' | 'done'

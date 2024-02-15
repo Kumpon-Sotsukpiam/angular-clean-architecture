@@ -7,11 +7,11 @@ export class TodoNotFoundError extends Error { }
 export abstract class TodosAdapterService {
     abstract getTodos(): Observable<Todo[]>
 
-    abstract getTodoByUuid(uuid: string): Observable<Todo | null>
+    abstract getTodoByUuid(uuidid: string): Observable<Todo | null>
 
     abstract createTodo(todo: CreateTodoDto): Observable<Todo>
 
-    abstract deleteTodo(uuid: string): Observable<void>
+    abstract deleteTodo(id: string): Observable<void>
 
     /**
      * @throws TodoNotFoundError
@@ -22,7 +22,7 @@ export abstract class TodosAdapterService {
      * @throws TodoNotFoundError
      */
     abstract updateTodoStatus(
-        uuid: string,
+        id: string,
         status: Todo['status']
     ): Observable<Todo>
 }

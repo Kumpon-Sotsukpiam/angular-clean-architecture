@@ -32,8 +32,8 @@ export const CreateTodoSuccess = createAction(TodoActionTypes.createTodoSuccess,
 export const CreateTodoFailure = createAction(TodoActionTypes.createTodoFailure, props<{ error: any }>());
 
 // delete todos action
-export const DeleteTodo = createAction(TodoActionTypes.deleteTodo, props<{ uuid: string }>());
+export const DeleteTodo = createAction(TodoActionTypes.deleteTodo, props<{ id: string }>());
 
-export const DeleteTodoSuccess = createAction(TodoActionTypes.deleteTodoSuccess, props<{ uuid: string }>());
+export const DeleteTodoSuccess = createAction(TodoActionTypes.deleteTodoSuccess, props<{ id: string }>());
 
 export const DeleteTodoFailure = createAction(TodoActionTypes.deleteTodoFailure, props<{ error: any }>());

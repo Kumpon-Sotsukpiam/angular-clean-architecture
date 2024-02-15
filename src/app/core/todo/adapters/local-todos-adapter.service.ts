@@ -25,11 +25,11 @@ export class LocalTodosAdapterService extends TodosAdapterService {
 
     createTodo(createTodo: CreateTodoDto): Observable<Todo> {
         return new Observable<Todo>((subscriber) => {
-            const uuid = getUuid()
+            const id = getUuid()
             const todo: Todo = {
-                uuid,
-                status: 'pending',
                 ...createTodo,
+                id,
+                status: 'pending',
             }
 
             if (this.isResponseFailed()) {
@@ -48,10 +48,10 @@ export class LocalTodosAdapterService extends TodosAdapterService {
         }).pipe(delay(DELAY_MS))
     }
 
-    deleteTodo(uuid: string): Observable<void> {
+    deleteTodo(id: string): Observable<void> {
         return new Observable((subscriber) => {
             const data = this.getData()
-            data.todos = data.todos.filter((it) => it.uuid !== uuid)
+            data.todos = data.todos.filter((it) => it.id !== id)
             this.saveData(data)
 
             subscriber.next()
@@ -59,10 +59,10 @@ export class LocalTodosAdapterService extends TodosAdapterService {
         })
     }
 
-    getTodoByUuid(uuid: string): Observable<Todo | null> {
+    getTodoByUuid(id: string): Observable<Todo | null> {
         return new Observable<Todo | null>((subscriber) => {
             const data = this.getData()
-            const todo = data.todos.find((it) => it.uuid === uuid)
+            const todo = data.todos.find((it) => it.id === id)
 
             subscriber.next(todo ?? null)
             subscriber.complete()
@@ -91,8 +91,8 @@ export class LocalTodosAdapterService extends TodosAdapterService {
         }).pipe(delay(DELAY_MS))
     }
 
-    updateTodoStatus(uuid: string, status: 'pending' | 'done'): Observable<Todo> {
-        return this.getTodoByUuid(uuid).pipe(
+    updateTodoStatus(id: string, status: 'pending' | 'done'): Observable<Todo> {
+        return this.getTodoByUuid(id).pipe(
             mergeMap((todo) => {
                 const todoNotFoundError$ = throwError(() => new TodoNotFoundError())
                 if (!todo) {
@@ -118,7 +118,7 @@ export class LocalTodosAdapterService extends TodosAdapterService {
     private updateTodoInStorage(todo: Todo) {
         const data = this.getData()
 
-        const savedTodo = data.todos.find((it) => it.uuid === todo.uuid)
+        const savedTodo = data.todos.find((it) => it.id === todo.id)
         if (!savedTodo) {
             throw new TodoNotFoundError()
         }

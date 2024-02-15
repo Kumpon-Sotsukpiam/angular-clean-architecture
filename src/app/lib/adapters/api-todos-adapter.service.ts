@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable, throwError } from 'rxjs'
-import { CreateTodoDto, TodosAdapterService } from '../todos-adapter.service'
-import { Todo } from '../types'
+import { TodosAdapterService } from '../services/todos-adapter.service'
+import { Todo } from '../interfaces/types'
+import { CreateTodoDto } from '../dtos'
 
 @Injectable()
 export class ApiTodosAdapterService extends TodosAdapterService {

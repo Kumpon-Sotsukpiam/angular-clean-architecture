@@ -21,6 +21,8 @@
     "@ngneat/elf": "^2.5.1",
     "@ngneat/elf-entities": "^5.0.1",
     "@ngneat/elf-requests": "^1.9.2",
+    "@ngrx/effects": "^15.4.0",
+    "@ngrx/store": "^15.4.0",
     "@types/uuid": "^9.0.8",
     "mobx": "^6.12.0",
     "rxjs": "~7.8.0",

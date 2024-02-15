@@ -330,7 +330,7 @@
 <div class="content" role="main">
   <!-- Next Steps -->
   <h2>Logs</h2>
-  <div *ngIf="todosFacadeService.todosLoaded$ | async">
+  <div>
     <div *ngFor="let item of todosFacadeService.todos$ | async">
       <p (click)="deleteTodo(item.uuid)">{{item.uuid}}:{{item.title}}</p>
     </div>

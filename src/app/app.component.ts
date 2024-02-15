@@ -30,23 +30,25 @@ export class AppComponent implements OnInit, OnDestroy {
     this.todosFacadeService.createTodo({
       title: 'New Todo',
       description: 'This is a new todo'
-    }).pipe(
-      takeUntil(this.destroy$),
-      catchError((error) => {
-        console.log("🚀 ~ AppComponent ~ catchError ~ error:", error)
-        return throwError(() => error);
-      })
-    );
+    })
+    // .pipe(
+    //   takeUntil(this.destroy$),
+    //   catchError((error) => {
+    //     console.log("🚀 ~ AppComponent ~ catchError ~ error:", error)
+    //     return throwError(() => error);
+    //   })
+    // );
   }
 
   public deleteTodo(uuid: string) {
-    this.todosFacadeService.deleteTodo(uuid)
+    // this.todosFacadeService.deleteTodo(uuid)
   }
 
   private getTodos() {
-    this.todosFacadeService.getTodos().pipe(
-      takeUntil(this.destroy$)
-    ).subscribe()
+    this.todosFacadeService.getTodos()
+    // .pipe(
+    //   takeUntil(this.destroy$)
+    // ).subscribe()
   }
 
 }

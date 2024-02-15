@@ -12,7 +12,7 @@ export interface LocalStorageData {
     todos: Todo[]
 }
 
-export const DELAY_MS = 500
+export const DELAY_MS = 100
 
 @Injectable()
 export class LocalTodosAdapterService extends TodosAdapterService {

@@ -1,79 +1,101 @@
 import { Injectable } from '@angular/core'
-import { BehaviorSubject, map, Observable } from 'rxjs'
-import { TodosAdapterService } from './todos-adapter.service'
-import { CreateTodoDto } from '../dtos/create-todo.dto'
-import { TodosDataService } from './todos-data.service'
-import { todos$ } from '../todos.repository'
-import { Todo } from '../interfaces/types'
+import { Store } from '@ngrx/store'
+import { TodosState } from '../store/todos.reducer'
+import { todosQuery } from '../store/todo.selectors'
+import { CreateTodo, LoadTodos } from '../store/todo.actions'
+import { CreateTodoDto } from '../dtos'
+// import { BehaviorSubject, map, Observable } from 'rxjs'
+
+// import { TodosAdapterService } from './todos-adapter.service'
+// import { CreateTodoDto } from '../dtos/create-todo.dto'
+// import { TodosDataService } from './todos-data.service'
+// import { todos$ } from '../todos.repository'
+// import { Todo } from '../interfaces/types'
+
 
 @Injectable({
     providedIn: 'root',
 })
 export class TodosFacadeService {
-    todos$: Observable<Todo[]> = todos$
-    doneTodos$: Observable<Todo[]> = this.todos$.pipe(
-        map((todos) => todos.filter((it) => it.status === 'done'))
-    )
-    activeTodos$: Observable<Todo[]> = this.todos$.pipe(
-        map((todos) => todos.filter((it) => it.status === 'pending'))
-    )
-    todosNumber$: Observable<number> = this.activeTodos$.pipe(
-        map((todos) => todos.length)
-    )
 
-    private todosLoadedSubject = new BehaviorSubject<boolean>(false)
-
-    todosLoaded$ = this.todosLoadedSubject.asObservable()
+    todos$ = this.store.select(todosQuery.getAllTodos)
 
     constructor(
-        private todosAdapter: TodosAdapterService,
-        private todosData: TodosDataService,
+        private store: Store<TodosState>
     ) { }
 
-    getTodos(): Observable<Todo[]> {
-        const todos$ = this.todosData.getTodos()
-
-        todos$.subscribe(() => this.todosLoadedSubject.next(true))
-
-        return todos$
+    getTodos() {
+        this.store.dispatch(LoadTodos())
     }
 
-    getTodoByUuid(uuid: Todo['uuid']): Observable<Todo | null> {
-        return this.todosAdapter.getTodoByUuid(uuid)
+    createTodo(data: CreateTodoDto) {
+        this.store.dispatch(CreateTodo({ data }))
     }
 
-    createTodo(data: CreateTodoDto): Observable<Todo> {
-        const todo$ = this.todosData.createTodo(data)
+    // todos$: Observable<Todo[]> = todos$
+    // doneTodos$: Observable<Todo[]> = this.todos$.pipe(
+    //     map((todos) => todos.filter((it) => it.status === 'done'))
+    // )
+    // activeTodos$: Observable<Todo[]> = this.todos$.pipe(
+    //     map((todos) => todos.filter((it) => it.status === 'pending'))
+    // )
+    // todosNumber$: Observable<number> = this.activeTodos$.pipe(
+    //     map((todos) => todos.length)
+    // )
 
-        todo$.subscribe()
+    // private todosLoadedSubject = new BehaviorSubject<boolean>(false)
 
-        return todo$
-    }
+    // todosLoaded$ = this.todosLoadedSubject.asObservable()
 
-    deleteTodo(uuid: Todo['uuid']): Observable<void> {
-        const result$ = this.todosData.deleteTodo(uuid)
+    // constructor(
+    //     private todosAdapter: TodosAdapterService,
+    //     private todosData: TodosDataService
+    // ) { }
 
-        result$.subscribe()
+    // getTodos(): Observable<Todo[]> {
+    //     const todos$ = this.todosData.getTodos()
 
-        return result$
-    }
+    //     todos$.subscribe(() => this.todosLoadedSubject.next(true))
 
-    updateTodo(todo: Todo): Observable<Todo> {
-        const todo$ = this.todosAdapter.updateTodo(todo)
+    //     return todos$
+    // }
 
-        todo$.subscribe()
+    // getTodoByUuid(uuid: Todo['uuid']): Observable<Todo | null> {
+    //     return this.todosAdapter.getTodoByUuid(uuid)
+    // }
 
-        return todo$
-    }
+    // createTodo(data: CreateTodoDto): Observable<Todo> {
+    //     const todo$ = this.todosData.createTodo(data)
 
-    updateTodoStatus(
-        uuid: Todo['uuid'],
-        status: Todo['status']
-    ): Observable<Todo> {
-        const todo$ = this.todosData.updateTodoStatus(uuid, status)
+    //     todo$.subscribe()
 
-        todo$.subscribe()
+    //     return todo$
+    // }
 
-        return todo$
-    }
+    // deleteTodo(uuid: Todo['uuid']): Observable<void> {
+    //     const result$ = this.todosData.deleteTodo(uuid)
+
+    //     result$.subscribe()
+
+    //     return result$
+    // }
+
+    // updateTodo(todo: Todo): Observable<Todo> {
+    //     const todo$ = this.todosAdapter.updateTodo(todo)
+
+    //     todo$.subscribe()
+
+    //     return todo$
+    // }
+
+    // updateTodoStatus(
+    //     uuid: Todo['uuid'],
+    //     status: Todo['status']
+    // ): Observable<Todo> {
+    //     const todo$ = this.todosData.updateTodoStatus(uuid, status)
+
+    //     todo$.subscribe()
+
+    //     return todo$
+    // }
 }

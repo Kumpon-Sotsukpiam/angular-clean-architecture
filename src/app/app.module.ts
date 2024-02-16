@@ -8,7 +8,8 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { CoreDataModule } from '@core/core.module';
 import { UIModule } from './components/ui/ui.module';
-import { TodoListModule } from './pages/todo-list/todo-list.module';
+import { LayoutModule } from './components/layouts/layout.module';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -23,7 +24,8 @@ import { TodoListModule } from './pages/todo-list/todo-list.module';
         }),
         EffectsModule.forRoot([]),
         CoreDataModule,
-        UIModule
+        UIModule,
+        LayoutModule
     ]
 })
 export class AppModule { }

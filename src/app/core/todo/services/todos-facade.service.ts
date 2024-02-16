@@ -4,6 +4,7 @@ import { TodosState } from '../store/todos.reducer'
 import { todosQuery } from '../store/todo.selectors'
 import { CreateTodo, LoadTodos } from '../store/todo.actions'
 import { CreateTodoDto } from '../dtos'
+import { TodosAdapterService } from './todos-adapter.service'
 // import { BehaviorSubject, map, Observable } from 'rxjs'
 
 // import { TodosAdapterService } from './todos-adapter.service'
@@ -22,7 +23,8 @@ export class TodosFacadeService {
     todosLoaded$ = this.store.select(todosQuery.getLoaded)
 
     constructor(
-        private store: Store<TodosState>
+        private store: Store<TodosState>,
+        private readonly todosAdapterService: TodosAdapterService
     ) { }
 
     getTodos() {

@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { StoreModule } from '@ngrx/store'
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api'
 
-// import { LocalTodosAdapterService } from './adapters/local-todos-adapter.service'
+import { LocalTodosAdapterService } from './adapters/local-todos-adapter.service'
 import { ApiTodosAdapterService } from './adapters/api-todos-adapter.service'
 import { TodosAdapterService } from './services/todos-adapter.service'
 import { TodosFacadeService } from './services/todos-facade.service'

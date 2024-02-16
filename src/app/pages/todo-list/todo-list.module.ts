@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { TodoListRoutingModule } from './todo-list-routing.module';
 import { UIModule } from 'src/app/components/ui/ui.module';
+import { LayoutModule } from 'src/app/components/layouts/layout.module';
 import { TodoListComponent } from './todo-list.component';
 
 @NgModule({
@@ -10,6 +11,7 @@ import { TodoListComponent } from './todo-list.component';
   imports: [
     CommonModule,
     UIModule,
+    LayoutModule,
     TodoListRoutingModule,
   ]
 })

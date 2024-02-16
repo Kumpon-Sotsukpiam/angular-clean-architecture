@@ -7,7 +7,7 @@ import { CreateTodoDto } from '../dtos'
 
 @Injectable()
 export class ApiTodosAdapterService extends TodosAdapterService {
-    private functionsUrl = 'http://localhost:8000'
+    // private functionsUrl = 'http://localhost:8000'
     baseUrl = "/api/todos";
 
     constructor(private http: HttpClient) {

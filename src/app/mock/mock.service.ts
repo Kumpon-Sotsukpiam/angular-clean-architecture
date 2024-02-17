@@ -2,9 +2,9 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { faker } from '@faker-js/faker';
 import { v4 as getUuid } from 'uuid'
 
-import { Todo } from '../interfaces';
+import { Todo } from '@data/interfaces'
 
-export class TodosMockDbService extends InMemoryDbService {
+export class MockDbService extends InMemoryDbService {
 
     public createDb() {
         const todos: Todo[] = faker.helpers.multiple(this.createRandomTodo, {

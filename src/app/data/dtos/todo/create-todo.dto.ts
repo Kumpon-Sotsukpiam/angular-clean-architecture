@@ -1,3 +1,3 @@
-import { Todo } from "../interfaces/types";
+import { Todo } from "@data/interfaces";
 
 export type CreateTodoDto = Omit<Todo, 'id' | 'status'>

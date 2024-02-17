@@ -5,8 +5,8 @@ import {
     TodoNotFoundError,
     TodosAdapterService,
 } from '../services/todos-adapter.service'
-import { CreateTodoDto } from '../dtos/create-todo.dto'
-import { Todo } from '../interfaces/types'
+import { Todo } from '@data/interfaces'
+import { CreateTodoDto } from '@data/dtos'
 
 export interface LocalStorageData {
     todos: Todo[]

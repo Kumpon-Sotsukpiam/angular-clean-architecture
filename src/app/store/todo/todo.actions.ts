@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
-import { Todo } from "../interfaces/types";
-import { CreateTodoDto } from "../dtos";
+import { Todo } from '@data/interfaces'
+import { CreateTodoDto } from "@data/dtos";
 
 export enum TodoActionTypes {
     loadTodos = "[Todos] Load Todos",

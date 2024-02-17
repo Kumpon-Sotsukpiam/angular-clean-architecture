@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs'
-import { Todo } from '../interfaces/types'
-import { CreateTodoDto } from '../dtos'
+import { Todo } from '@data/interfaces'
+import { CreateTodoDto } from '@data/dtos'
 
 export class TodoNotFoundError extends Error { }
 

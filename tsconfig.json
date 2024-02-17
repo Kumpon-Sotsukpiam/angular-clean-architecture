@@ -24,11 +24,17 @@
       "dom"
     ],
     "paths": {
-      "@core": [
-        "./src/app/core/index.ts"
-      ],
       "@core/*": [
         "./src/app/core/*"
+      ],
+      "@data/*": [
+        "./src/app/data/*"
+      ],
+      "@store/*": [
+        "./src/app/store/*"
+      ],
+      "@mock/*": [
+        "./src/app/mock/*"
       ]
     }
   },

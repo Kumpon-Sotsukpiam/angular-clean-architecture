@@ -1,5 +1,5 @@
 import { Action, ActionReducer, createReducer, on } from "@ngrx/store";
-import { Todo } from "../interfaces/types";
+import { Todo } from '@data/interfaces'
 import { CreateTodo, CreateTodoFailure, CreateTodoSuccess, LoadTodos, LoadTodosFailure, LoadTodosSuccess } from "./todo.actions";
 
 export interface TodosState {

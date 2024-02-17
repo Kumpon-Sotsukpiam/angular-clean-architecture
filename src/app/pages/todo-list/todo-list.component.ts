@@ -4,9 +4,9 @@ import { ScannedActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { initFlowbite } from 'flowbite';
 
-import { TodosFacadeService } from '@core';
-import { TodoActionTypes } from '@core/todo/store/todo.actions';
-import { TodosMockDbService } from '@core/todo/mock/todos.mock';
+import { TodosFacadeService } from '@core/todo';
+import { TodoActionTypes } from '@store/todo/todo.actions';
+import { MockDbService } from '@mock/mock.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -18,7 +18,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
 
   constructor(
     public readonly todosFacadeService: TodosFacadeService,
-    private readonly todosMockDbService: TodosMockDbService,
+    private readonly mockDbService: MockDbService,
     private readonly actions$: ScannedActionsSubject
   ) {
     actions$.pipe(takeUntil(this.destroy$))
@@ -41,7 +41,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
   }
 
   public createTodo() {
-    const todo = this.todosMockDbService.createRandomTodo()
+    const todo = this.mockDbService.createRandomTodo()
     this.todosFacadeService.createTodo(todo)
   }
 

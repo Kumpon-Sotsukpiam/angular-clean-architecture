@@ -7,6 +7,7 @@ import { initFlowbite } from 'flowbite';
 import { TodosFacadeService } from '@core/todo';
 import { TodoActionTypes } from '@store/todo/todo.actions';
 import { MockDbService } from '@mock/mock.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-todo-list',
@@ -15,17 +16,27 @@ import { MockDbService } from '@mock/mock.service';
 })
 export class TodoListComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>()
+  public form: any;
 
   constructor(
     public readonly todosFacadeService: TodosFacadeService,
     private readonly mockDbService: MockDbService,
     private readonly actions$: ScannedActionsSubject
   ) {
+    this.initForm();
     actions$.pipe(takeUntil(this.destroy$))
       .pipe(ofType(TodoActionTypes.createTodoFailure))
       .subscribe(action => {
         console.log("🚀 ~ AppComponent ~ constructor ~ action", action)
       })
+  }
+
+  private initForm() {
+    this.form = new FormGroup({
+      title: new FormControl('', {
+        validators: [Validators.required]
+      })
+    });
   }
 
   ngOnInit(): void {
@@ -38,6 +49,13 @@ export class TodoListComponent implements OnInit, OnDestroy {
     console.log("🚀 ~ TodoListComponent ~ ngOnDestroy")
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  public submitForm() {
+    console.log("🚀 ~ TodoListComponent ~ submitForm ~ this.form", this.form.value)
+    const todo = this.mockDbService.createRandomTodo()
+    todo.title = this.form.value.title
+    this.todosFacadeService.createTodo(todo)
   }
 
   public createTodo() {

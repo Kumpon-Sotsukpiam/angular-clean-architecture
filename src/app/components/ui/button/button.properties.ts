@@ -174,5 +174,5 @@ export const buttonPillClasses: Record<string, string> = {
 
 export const buttonDisableClasses: Record<string, string> = {
     false: '',
-    true: ' cursor-not-allowed opacity-50',
+    true: ' disabled:cursor-not-allowed disabled:opacity-50',
 };

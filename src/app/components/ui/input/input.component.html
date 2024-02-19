@@ -1,0 +1,8 @@
+<form-field [disabled]="disabled" [validation]="validationClass">
+    <label flowbiteLabel>{{title}} <span class="text-red-500" [hidden]="!isRequired">*</span></label>
+    <input [type]="type" [name]="formControlName" [id]="formControlName" [placeholder]="" [value]="value" flowbiteInput
+        (input)="onChange($event)" (blur)="touched()" />
+    <div flowbiteHelper>
+        <p *ngIf="showErrors" class="text-red-500 text-right">{{errorMessage}}</p>
+    </div>
+</form-field>

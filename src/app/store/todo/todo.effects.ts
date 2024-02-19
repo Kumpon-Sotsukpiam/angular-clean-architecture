@@ -33,7 +33,7 @@ export class TodoEffects {
         ofType(CreateTodo),
         switchMap(action => this.todosAdapter.createTodo(action.data).pipe(
             map(todo => CreateTodoSuccess({ todo })),
-            map(() => ({ type: TodoActionTypes.loadTodos })),
+            // map(() => ({ type: TodoActionTypes.loadTodos })),
             catchError(error => of(CreateTodoFailure({ error })))
         ))
     ));

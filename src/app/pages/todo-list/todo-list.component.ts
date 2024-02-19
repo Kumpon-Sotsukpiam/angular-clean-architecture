@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, filter, takeUntil } from 'rxjs';
 import { ScannedActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
 import { initFlowbite } from 'flowbite';
 
 import { TodosFacadeService } from '@core/todo';
-import { TodoActionTypes } from '@store/todo/todo.actions';
+import { CreateTodoSuccess, TodoActionTypes } from '@store/todo/todo.actions';
 import { MockDbService } from '@mock/mock.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -16,7 +16,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class TodoListComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>()
-  public form: any;
+  public form: FormGroup;
 
   constructor(
     public readonly todosFacadeService: TodosFacadeService,
@@ -25,18 +25,8 @@ export class TodoListComponent implements OnInit, OnDestroy {
   ) {
     this.initForm();
     actions$.pipe(takeUntil(this.destroy$))
-      .pipe(ofType(TodoActionTypes.createTodoFailure))
-      .subscribe(action => {
-        console.log("🚀 ~ AppComponent ~ constructor ~ action", action)
-      })
-  }
-
-  private initForm() {
-    this.form = new FormGroup({
-      title: new FormControl('', {
-        validators: [Validators.required]
-      })
-    });
+      .pipe(filter(action => (action.type === TodoActionTypes.createTodoSuccess)))
+      .subscribe((_) => this.resetForm())
   }
 
   ngOnInit(): void {
@@ -51,11 +41,29 @@ export class TodoListComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  private initForm() {
+    this.form = new FormGroup({
+      title: new FormControl('', {
+        validators: [Validators.required, Validators.minLength(3)]
+      })
+    });
+  }
+
+  private resetForm(): void {
+    this.form.reset();
+  }
+
   public submitForm() {
     console.log("🚀 ~ TodoListComponent ~ submitForm ~ this.form", this.form.value)
-    const todo = this.mockDbService.createRandomTodo()
-    todo.title = this.form.value.title
-    this.todosFacadeService.createTodo(todo)
+    if (this.form.valid) {
+      const todo = this.mockDbService.createRandomTodo()
+      todo.title = this.form.value.title
+      this.todosFacadeService.createTodo(todo)
+    }
+  }
+
+  public disabledSubmitForm() {
+    return this.form.invalid;
   }
 
   public createTodo() {

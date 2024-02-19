@@ -10,11 +10,14 @@
   </div>
   <div class="mt-3 w-full">
     <form [formGroup]="form" class="flex flex-col gap-3">
-      <form-field>
+      <div>
+        <app-input title="Title" [type]="'text'" formControlName="title" [parentForm]="form" />
+      </div>
+      <!-- <form-field>
         <label flowbiteLabel>Title</label>
         <input formControlName="title" type="text" flowbiteInput />
-      </form-field>
-      <flowbite-button [class]="'w-full'" (click)="submitForm()">
+      </form-field> -->
+      <flowbite-button [class]="'w-full'" [disabled]="disabledSubmitForm()" (click)="submitForm()">
         <span>New Log</span>
       </flowbite-button>
     </form>

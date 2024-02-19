@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core'
 import { ButtonComponent } from './button/button.component';
 import { FormComponent } from './form/form.component';
+import { InputComponent } from './input/input.component';
 import {
   HelperDirective,
   IconDirective,
@@ -13,6 +14,7 @@ import {
   imports: [
     ButtonComponent,
     FormComponent,
+    InputComponent,
     AddonDirective,
     HelperDirective,
     IconDirective,
@@ -29,11 +31,12 @@ import {
   exports: [
     ButtonComponent,
     FormComponent,
+    InputComponent,
     AddonDirective,
     HelperDirective,
     IconDirective,
     InputDirective,
     LabelDirective
-  ],
+  ]
 })
 export class UIModule { }

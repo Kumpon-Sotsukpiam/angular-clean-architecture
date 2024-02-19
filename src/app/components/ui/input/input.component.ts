@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild, forwardRef } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 import { FormComponent } from '../form/form.component';
 import {
   HelperDirective,
@@ -52,8 +52,15 @@ export class InputComponent implements ControlValueAccessor {
     return ""
   }
   get isRequired() {
-    if (this.formField.errors?.['required']) return true
-    return false;
+    // get validations from the formControl
+    const control = this.parentForm.get(this.formControlName);
+    if (control && control.validator) {
+      const validator = control.validator({} as FormControl);
+      if (validator && validator?.["required"]) {
+        return true;
+      }
+    }
+    return false
   }
   get showErrors() {
     if (!this.formField.valid && this.formField.touched) return true

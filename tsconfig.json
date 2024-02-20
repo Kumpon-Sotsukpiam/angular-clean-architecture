@@ -36,6 +36,9 @@
       ],
       "@mock/*": [
         "./src/app/mock/*"
+      ],
+      "@components/*": [
+        "./src/app/components/*"
       ]
     }
   },

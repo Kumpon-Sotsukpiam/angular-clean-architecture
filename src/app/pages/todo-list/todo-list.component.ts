@@ -17,6 +17,18 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class TodoListComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>()
   public form: FormGroup;
+  public options = {
+    selectOptions: [{
+      value: 'US',
+      label: 'United States'
+    }, {
+      value: 'UK',
+      label: 'United Kingdom'
+    }, {
+      value: 'CA',
+      label: 'Canada'
+    }]
+  }
   @ViewChild('data') private dataContainer: ElementRef;
 
   constructor(
@@ -38,7 +50,6 @@ export class TodoListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     console.log("🚀 ~ TodoListComponent ~ ngOnInit")
-    initFlowbite();
     this.getTodos();
   }
 
@@ -52,6 +63,9 @@ export class TodoListComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       title: new FormControl('', {
         validators: [Validators.required, Validators.minLength(3)]
+      }),
+      options: new FormControl('', {
+        validators: [Validators.required]
       })
     });
   }

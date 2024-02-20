@@ -32,6 +32,8 @@
           <div>
             <app-input title="Title" placeholder="Vulticulus fuga aggero" [type]="'text'" formControlName="title"
               [parentForm]="form" />
+            <app-select title="Options" placeholder="Testing options component" formControlName="options" [parentForm]="form"
+              [options]="options.selectOptions" />
           </div>
         </form>
       </app-modal-body>
@@ -42,8 +44,6 @@
           </app-indicators>
           <span>New Log</span>
         </app-button>
-        <!-- <app-button (click)="modal.close()">I accept</app-button> -->
-        <!-- <app-button (click)="modal.close()" [color]="'gray'">I decline</app-button> -->
       </app-modal-footer>
     </app-modal>
   </div>

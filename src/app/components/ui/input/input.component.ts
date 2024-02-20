@@ -34,6 +34,7 @@ import { CommonModule } from '@angular/common';
 })
 export class InputComponent implements ControlValueAccessor {
   @Input() title = '';
+  @Input() placeholder = '';
   @Input() type: InputType = 'text';
   @Input() disabled = false;
   @Input() size: InputSize = 'default';

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject, filter, takeUntil } from 'rxjs';
 import { ScannedActionsSubject } from '@ngrx/store';
 import { ofType } from '@ngrx/effects';
@@ -17,16 +17,23 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class TodoListComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>()
   public form: FormGroup;
+  @ViewChild('data') private dataContainer: ElementRef;
 
   constructor(
     public readonly todosFacadeService: TodosFacadeService,
     private readonly mockDbService: MockDbService,
     private readonly actions$: ScannedActionsSubject
   ) {
+    // this.autoScroll();
     this.initForm();
     actions$.pipe(takeUntil(this.destroy$))
       .pipe(filter(action => (action.type === TodoActionTypes.createTodoSuccess)))
-      .subscribe((_) => this.resetForm())
+      .subscribe((_) => {
+        this.resetForm();
+        setTimeout(() => {
+          this.scrollToBottom();
+        }, 50);
+      })
   }
 
   ngOnInit(): void {
@@ -72,11 +79,21 @@ export class TodoListComponent implements OnInit, OnDestroy {
   }
 
   public deleteTodo(id: string) {
-    // this.todosFacadeService.deleteTodo(uuid)
   }
 
   private getTodos() {
     this.todosFacadeService.getTodos()
   }
 
+  // autoScroll() {
+  //   setInterval(() => {
+  //     this.scrollToBottom();
+  //   }, 5000);
+  // }
+
+  scrollToBottom(): void {
+    try {
+      this.dataContainer.nativeElement.scrollTop = this.dataContainer.nativeElement.scrollHeight;
+    } catch (err) { }
+  }
 }

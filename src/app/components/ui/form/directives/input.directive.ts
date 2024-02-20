@@ -93,7 +93,6 @@ export class InputDirective extends BaseInputDirective {
                 classesToAdd.push(...InputProperties.default.size[this._size]);
             }
         }
-
         this._classes = classesToAdd;
     }
 }

@@ -1,25 +1,50 @@
-<div class="content" role="main">
-  <h2>Logs</h2>
-  <div *ngIf="todosFacadeService.todosLoaded$ | async">
-    <div *ngFor="let item of todosFacadeService.todos$ | async">
-      <p (click)="deleteTodo(item.id)">{{item.id}}: {{item.title}}</p>
-    </div>
-  </div>
-  <div *ngIf="!(todosFacadeService.todosLoaded$ | async)">
-    <p>Loading...</p>
-  </div>
-  <div class="mt-3 w-full">
-    <form [formGroup]="form" class="flex flex-col gap-3">
-      <div>
-        <app-input title="Title" [type]="'text'" formControlName="title" [parentForm]="form" />
+<div class="flex flex-col">
+  <app-breadcrumb>
+    <app-breadcrumb-item href="#">
+      <svg class="mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
+        </path>
+      </svg>
+      Home
+    </app-breadcrumb-item>
+    <app-breadcrumb-item href="/todos">Todo</app-breadcrumb-item>
+  </app-breadcrumb>
+  <div class="flex flex-col items-center">
+    <h2 class="mb-4">Logs</h2>
+    <div #data class="border p-2 overflow-y-scroll h-36 max-w-4xl rounded-xl scrollbar-hind">
+      <div *ngIf="todosFacadeService.todosLoaded$ | async">
+        <div *ngFor="let item of todosFacadeService.todos$ | async">
+          <p (click)="deleteTodo(item.id)">{{item.short_id}}: {{item.title}}</p>
+        </div>
       </div>
-      <!-- <form-field>
-        <label flowbiteLabel>Title</label>
-        <input formControlName="title" type="text" flowbiteInput />
-      </form-field> -->
-      <flowbite-button [class]="'w-full'" [disabled]="disabledSubmitForm()" (click)="submitForm()">
-        <span>New Log</span>
-      </flowbite-button>
-    </form>
+      <div *ngIf="!(todosFacadeService.todosLoaded$ | async)">
+        <p>Loading...</p>
+      </div>
+    </div>
+    <div class="mt-3 w-full flex flex-col items-center">
+      <app-button (click)="this.modal.open()">Create new log</app-button>
+    </div>
+    <app-modal #modal [dismissable]="true" [size]="'md'" [isOpen]="false">
+      <app-modal-header>Create new log</app-modal-header>
+      <app-modal-body>
+        <form [formGroup]="form" class="flex flex-col gap-3">
+          <div>
+            <app-input title="Title" placeholder="Vulticulus fuga aggero" [type]="'text'" formControlName="title"
+              [parentForm]="form" />
+          </div>
+        </form>
+      </app-modal-body>
+      <app-modal-footer>
+        <app-button class="w-full relative" [disabled]="disabledSubmitForm()" (click)="submitForm()">
+          <app-indicators color="red" [border]="true" placement="top-right" size="xl">
+            <span class="text-white text-xs font-bold">{{todosFacadeService.getTodosSize$| async}}</span>
+          </app-indicators>
+          <span>New Log</span>
+        </app-button>
+        <!-- <app-button (click)="modal.close()">I accept</app-button> -->
+        <!-- <app-button (click)="modal.close()" [color]="'gray'">I decline</app-button> -->
+      </app-modal-footer>
+    </app-modal>
   </div>
 </div>

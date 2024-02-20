@@ -18,7 +18,7 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
 @Component({
   standalone: true,
   imports: [NgIf, NgTemplateOutlet],
-  selector: 'flowbite-button',
+  selector: 'app-button',
   templateUrl: './button.component.html',
 })
 export class ButtonComponent implements OnInit {

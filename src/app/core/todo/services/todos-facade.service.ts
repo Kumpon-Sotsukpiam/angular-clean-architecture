@@ -13,7 +13,8 @@ export class TodosFacadeService {
 
     todos$ = this.store.select(todosQuery.getAllTodos)
     todosLoaded$ = this.store.select(todosQuery.getLoaded)
-
+    getTodosSize$ = this.store.select(todosQuery.getTodosSize)
+    
     constructor(
         private store: Store<TodosState>,
         private readonly todosAdapterService: TodosAdapterService

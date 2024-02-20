@@ -185,6 +185,7 @@ export const InputProperties = {
     default: {
         base: ['border', 'rounded-lg', 'block', 'w-full', 'focus:outline-none'],
         default: [
+            'border-gray-300',
             'focus:ring-blue-500',
             'focus:border-blue-500',
             'dark:focus:ring-blue-500',

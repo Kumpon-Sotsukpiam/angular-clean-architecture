@@ -1,0 +1,7 @@
+{
+  "name": "angular-tour-of-heroes",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}

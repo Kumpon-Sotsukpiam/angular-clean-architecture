@@ -1,5 +1,6 @@
 import {
   AddonDirective,
+  SelectDirective,
   HelperDirective,
   IconDirective,
   InputDirective,
@@ -43,12 +44,19 @@ export class FormComponent implements OnDestroy {
     prefixType: null,
   });
 
-  @ContentChild(InputDirective) set input(content: InputDirective) {
+  private applyProperties(content: any) {
     if (content) {
       this._properties.subscribe((value) =>
         Object.assign(content, { ...value, _id: this._inputId }),
       );
     }
+  }
+
+  @ContentChild(InputDirective) set input(content: InputDirective) {
+    this.applyProperties(content);
+  }
+  @ContentChild(SelectDirective) set select(content: SelectDirective) {
+    this.applyProperties(content);
   }
   @ContentChild(LabelDirective) set label(content: LabelDirective) {
     if (content) {

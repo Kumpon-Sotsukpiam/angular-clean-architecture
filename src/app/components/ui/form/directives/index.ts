@@ -3,3 +3,4 @@ export * from './input.directive';
 export * from './label.directive';
 export * from './addon.directive';
 export * from './icon.directive';
+export * from './select.directive';

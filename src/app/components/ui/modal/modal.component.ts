@@ -51,7 +51,6 @@ export class ModalComponent {
   open() {
     this.isOpen = true;
     this.changeBackdrop();
-    console.log(this.positionClasses);
   }
 
   close() {
@@ -95,7 +94,6 @@ export class ModalComponent {
   }
 
   onBackdropClick(event: MouseEvent) {
-    console.log(this.dismissable);
     if (event.target == event.currentTarget && this.dismissable) {
       this.close();
     }

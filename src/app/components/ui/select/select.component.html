@@ -1,0 +1,11 @@
+<form-field [disabled]="disabled" [validation]="validationClass">
+    <label flowbiteLabel>{{title}} <span class="text-red-500" [hidden]="!isRequired">*</span></label>
+    <select flowbiteSelect [name]="formControlName" [id]="formControlName" [value]="value" (input)="onChange($event)"
+        (blur)="touched()">
+        <option [value]="null" disabled selected>{{placeholder}}</option>
+        <option *ngFor="let option of options" [value]="option.value">{{option.label}}</option>
+    </select>
+    <div flowbiteHelper>
+        <p *ngIf="showErrors" class="text-red-500 text-right">{{errorMessage}}</p>
+    </div>
+</form-field>
